@@ -30,7 +30,7 @@ int main() {
 
   glfwMakeContextCurrent(window);
 
-  if (!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress))) {
+  if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
     std::cerr << "Failed to initialize GLAD\n";
     glfwDestroyWindow(window);
     glfwTerminate();
