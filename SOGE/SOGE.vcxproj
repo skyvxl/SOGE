@@ -64,7 +64,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir)external\glad\include;C:\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\stb_image;$(ProjectDir)external\glad\include;C:\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -84,7 +84,7 @@
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc11</LanguageStandard_C>
-      <AdditionalIncludeDirectories>$(ProjectDir)external\glad\include;C:\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)external\stb_image;$(ProjectDir)external\glad\include;C:\Libraries\glfw\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
@@ -115,10 +115,12 @@
     <ItemGroup>
       <ShaderFiles Include="$(ProjectDir)shaders\**\*.*" />
     </ItemGroup>
-    <Copy
-      SourceFiles="@(ShaderFiles)"
-      DestinationFiles="@(ShaderFiles->'$(OutDir)shaders\%(RecursiveDir)%(Filename)%(Extension)')"
-      SkipUnchangedFiles="true"
-    />
+    <Copy SourceFiles="@(ShaderFiles)" DestinationFiles="@(ShaderFiles->'$(OutDir)shaders\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
+  </Target>
+  <Target Name="CopyImages" AfterTargets="Build">
+    <ItemGroup>
+      <ImageFiles Include="$(ProjectDir)images\**\*.*" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ImageFiles)" DestinationFiles="@(ImageFiles->'$(OutDir)images\%(RecursiveDir)%(Filename)%(Extension)')" SkipUnchangedFiles="true" />
   </Target>
 </Project>
