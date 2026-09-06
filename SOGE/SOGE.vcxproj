@@ -97,12 +97,28 @@
   <ItemGroup>
     <ClCompile Include="external\glad\src\glad.c" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="G:\Мой диск\Разработка\C++\.clang-format" />
     <None Include="G:\Мой диск\Разработка\C++\.clang-tidy" />
+    <None Include="shaders\shader.frag" />
+    <None Include="shaders\shader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Shader.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <Target Name="CopyShaders" AfterTargets="Build">
+    <ItemGroup>
+      <ShaderFiles Include="$(ProjectDir)shaders\**\*.*" />
+    </ItemGroup>
+    <Copy
+      SourceFiles="@(ShaderFiles)"
+      DestinationFiles="@(ShaderFiles->'$(OutDir)shaders\%(RecursiveDir)%(Filename)%(Extension)')"
+      SkipUnchangedFiles="true"
+    />
+  </Target>
 </Project>

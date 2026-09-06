@@ -4,3 +4,4 @@ bin-int
 x64
 obj
 *.user
+.vscode
