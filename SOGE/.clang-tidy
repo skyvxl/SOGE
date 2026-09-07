@@ -1,0 +1,101 @@
+FormatStyle: file
+
+Checks: >
+  -*,
+  clang-analyzer-*,
+  bugprone-*,
+  performance-*,
+  modernize-*,
+  portability-*,
+  misc-*,
+  readability-*,
+  cppcoreguidelines-*,
+
+  -cppcoreguidelines-owning-memory,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+  -cppcoreguidelines-pro-bounds-constant-array-index,
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -cppcoreguidelines-pro-type-cstyle-cast,
+  -cppcoreguidelines-pro-type-reinterpret-cast,
+  -cppcoreguidelines-pro-type-union-access,
+  -cppcoreguidelines-macro-usage,
+
+  -readability-magic-numbers,
+  -readability-identifier-length,
+  -readability-function-cognitive-complexity,
+  -readability-function-size,
+  -readability-named-parameter,
+  -readability-else-after-return,
+  -readability-redundant-access-specifiers,
+  -readability-avoid-const-params-in-decls,
+
+  -modernize-use-trailing-return-type,
+  -modernize-use-nodiscard,
+  -modernize-avoid-c-arrays,
+  -modernize-use-auto,
+
+  -misc-non-private-member-variables-in-classes,
+  -hicpp-*
+
+WarningsAsErrors: ''
+
+HeaderFilterRegex: '.*'
+
+CheckOptions:
+  # Namespaces
+  readability-identifier-naming.NamespaceCase: lower_case
+
+  # Types
+  readability-identifier-naming.ClassCase: CamelCase
+  readability-identifier-naming.StructCase: CamelCase
+  readability-identifier-naming.EnumCase: CamelCase
+  readability-identifier-naming.EnumConstantCase: CamelCase
+  readability-identifier-naming.TypeAliasCase: CamelCase
+
+  # Functions / methods
+  readability-identifier-naming.FunctionCase: CamelCase
+  readability-identifier-naming.MethodCase: CamelCase
+
+  # Local variables / parameters
+  readability-identifier-naming.VariableCase: camelBack
+  readability-identifier-naming.LocalVariableCase: camelBack
+  readability-identifier-naming.ParameterCase: camelBack
+
+  # Class / struct members
+  readability-identifier-naming.MemberCase: camelBack
+  readability-identifier-naming.MemberPrefix: m_
+
+  readability-identifier-naming.PrivateMemberCase: camelBack
+  readability-identifier-naming.PrivateMemberPrefix: m_
+
+  readability-identifier-naming.ProtectedMemberCase: camelBack
+  readability-identifier-naming.ProtectedMemberPrefix: m_
+
+  readability-identifier-naming.PublicMemberCase: camelBack
+  readability-identifier-naming.PublicMemberPrefix: m_
+
+  # Static variables
+  readability-identifier-naming.StaticVariableCase: camelBack
+  readability-identifier-naming.StaticVariablePrefix: s_
+
+  # Constants
+  readability-identifier-naming.ConstantCase: CamelCase
+  readability-identifier-naming.ConstantPrefix: k
+
+  readability-identifier-naming.GlobalConstantCase: CamelCase
+  readability-identifier-naming.GlobalConstantPrefix: k
+
+  readability-identifier-naming.StaticConstantCase: CamelCase
+  readability-identifier-naming.StaticConstantPrefix: k
+
+  readability-identifier-naming.ClassConstantCase: CamelCase
+  readability-identifier-naming.ClassConstantPrefix: k
+
+  # Macros
+  readability-identifier-naming.MacroDefinitionCase: UPPER_CASE
+
+  # Other useful readability options
+  readability-implicit-bool-conversion.AllowPointerConditions: true
+  readability-braces-around-statements.ShortStatementLines: 1
+  bugprone-argument-comment.StrictMode: false

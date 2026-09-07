@@ -100,8 +100,8 @@
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="G:\Мой диск\Разработка\C++\.clang-format" />
-    <None Include="G:\Мой диск\Разработка\C++\.clang-tidy" />
+    <None Include=".clang-format" />
+    <None Include=".clang-tidy" />
     <None Include="shaders\shader.frag" />
     <None Include="shaders\shader.vert" />
   </ItemGroup>
