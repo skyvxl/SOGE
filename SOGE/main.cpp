@@ -9,6 +9,9 @@
 #include "Shader.h"
 
 #include <cstdlib>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include <iostream>
 
 static void framebufferSizeCallback(GLFWwindow*, int width, int height) {
@@ -60,11 +63,11 @@ int main() {
     Shader ourShader("shaders/shader.vert", "shaders/shader.frag");
 
     float vertices[] = {
-        // position         // color         // tex coord
-        0.5f,  0.5f,  0.0f, 1.0f, 0.0f, 0.0f, 1.0f, 1.0f, // top right
-        0.5f,  -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f, // bottom right
-        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f, // bottom left
-        -0.5f, 0.5f,  0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f  // top left
+        // position         // tex coord
+        0.5f,  0.5f,  0.0f, 1.0f, 1.0f, // top right
+        0.5f,  -0.5f, 0.0f, 1.0f, 0.0f, // bottom right
+        -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, // bottom left
+        -0.5f, 0.5f,  0.0f, 0.0f, 1.0f  // top left
     };
 
     unsigned int indices[] = {
@@ -99,16 +102,12 @@ int main() {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // position
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(0));
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(0));
     glEnableVertexAttribArray(0);
 
-    // color
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
     // texture coordinates
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
-    glEnableVertexAttribArray(2);
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
 
     // ---------------------------------------------------------
     // TEXTURE
@@ -180,6 +179,9 @@ int main() {
     ourShader.SetInt("texture1", 0);
     ourShader.SetInt("texture2", 1);
 
+    glm::vec2 position(0.0f, 0.0f);
+    glm::vec2 velocity(0.5f, 0.35f);
+
     while (!glfwWindowShouldClose(window)) {
         processInput(window);
 
@@ -190,6 +192,13 @@ int main() {
         glBindTexture(GL_TEXTURE_2D, texture1);
         glActiveTexture(GL_TEXTURE1);
         glBindTexture(GL_TEXTURE_2D, texture2);
+
+        auto trans = glm::mat4(1.0f);
+        trans = glm::translate(trans, glm::vec3(position, 0.0f));
+        trans = glm::scale(trans, glm::vec3(0.5, 0.4, 0.0));
+
+        auto transformLoc = glGetUniformLocation(ourShader.ID, "transform");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
         ourShader.Use();
         glBindVertexArray(VAO);
